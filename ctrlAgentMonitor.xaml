@@ -1,0 +1,53 @@
+﻿<SolutionManagerAPI:ctrlWPFBase x:Class="Plugin_AgentMonitor.ctrlAgentMonitor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:SolutionManagerAPI="clr-namespace:Intel.Ucrd.SolutionManagerAPI;assembly=SolutionManagerAPI" mc:Ignorable="d" 
+             d:DesignHeight="213" d:DesignWidth="348" Loaded="ctrlWPFBase_Loaded">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <Button Content="Refresh"   Width="85" DockPanel.Dock="Top"  x:Name="btnRefresh" Margin="7" 
+                    VerticalAlignment="Top"  HorizontalAlignment="Right" Click="btnRefresh_Click"   >
+              
+            </Button>
+
+            <Border DockPanel.Dock="Bottom"   VerticalAlignment="Bottom"  Style="{DynamicResource BorderForBottomOfPlugin}" >
+                <Grid >
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!--<Expander Header="Edit Items" Name="editExpander" DockPanel.Dock="Top" Expanded="expander1_Expanded" Collapsed="expander1_Collapsed">
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0" />
+                            <GradientStop Color="#FFCCCCCC" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <StackPanel Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Name="btnAdd1" Height="32" Width="129" Click="btnAdd_MouseLeftButtonUp">
+                            <StackPanel Orientation="Horizontal" >
+                                <Image HorizontalAlignment="Left" Source="/Plugin_Launcher;component/Images/add.png" Height="24" Width="24"></Image>
+                                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center">Add New Item</TextBlock>
+                            </StackPanel>
+                                </Button>                                        
+                    </StackPanel>
+                </Grid>
+            </Expander>-->
+
+            <ListView Name="lstAgents"  Margin="0,0,0,5" FontSize="10"  FontFamily="Segoe UI" SelectionMode="Single" VerticalAlignment="Top" ItemsSource="{Binding}"  >
+                <ListView.View>
+                    <GridView >
+                        <GridViewColumn x:Name="Id"   Header= " Id" DisplayMemberBinding="{Binding Path=Id}" />
+                        <GridViewColumn x:Name="Name"  Header=" Name"  DisplayMemberBinding="{Binding Path=Name}" />
+                        <GridViewColumn x:Name="State"  Header=" State"  DisplayMemberBinding="{Binding Path=State}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+                        
+
+        </DockPanel>
+    </Grid>
+</SolutionManagerAPI:ctrlWPFBase>
