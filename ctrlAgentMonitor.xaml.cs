@@ -18,18 +18,42 @@ namespace Plugin_AgentMonitor
     /// </summary>
     public partial class ctrlAgentMonitor : ctrlWPFBase
     {
+        /// <summary>
+        /// Default constructor
+        /// </summary>
 
         public ctrlAgentMonitor()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Constructor injection
+        /// </summary>
+        /// <param name="plugin"></param>
         public ctrlAgentMonitor(SolutionManagerPlugin plugin)
             : base(plugin)
         {
             InitializeComponent();
             _plugin = plugin;
         }
+
+        /// <summary>
+        /// Function to load a list of watch dogs
+        /// </summary>
+        private void ListWatchdogs()
+        {
+            IWSManClient wsmanClient = new DotNetWSManClient(_plugin.System.Fqdn, "admin", _plugin.System.Password,
+                                                             _plugin.System.UseTls, false, null, null);
+            WatchdogWrapper client = new WatchdogWrapper();
+            var list = client.List(wsmanClient, null);            
+            if (list != null)
+            {
+                lstAgents.DataContext = list;
+            }            
+        }
+
+        #region Events
 
         private bool _isLoaded = false;
         private void ctrlWPFBase_Loaded(object sender, RoutedEventArgs e)
@@ -47,22 +71,7 @@ namespace Plugin_AgentMonitor
             ListWatchdogs();
         }
 
-        /// <summary>
-        /// Function to load a list of watch dogs
-        /// </summary>
-        private void ListWatchdogs()
-        {
-            IWSManClient wsmanClient = new DotNetWSManClient(_plugin.System.Fqdn, "admin", _plugin.System.Password,
-                                                             _plugin.System.UseTls, false, null, null);
-            WatchdogWrapper client = new WatchdogWrapper();
-            var list = client.List(wsmanClient, null);            
-            if (list != null)
-            {
-                lstAgents.DataContext = list;
-            }
-
-            
-        }        
+        #endregion
     }
     
 }
